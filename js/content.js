@@ -4,37 +4,46 @@ const sheetURL =
 const patientList = document.getElementById("patientList");
 const patientContent = document.getElementById("patientContent");
 
-fetch(sheetURL)
-  .then((response) => response.text())
-  .then((csv) => {
-    const parsed = Papa.parse(csv, {
-      header: true,
-      skipEmptyLines: true,
-    });
+Papa.parse(sheetURL, {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function (results) {
+    const patients = results.data;
 
-    const patients = parsed.data;
+    if (!patients.length) {
+      patientContent.innerHTML = "<p>No patient data found.</p>";
+      return;
+    }
 
     patients.forEach((patient) => {
-      const li = document.createElement("li");
-      const btn = document.createElement("button");
+      if (!patient.patient_name) return;
 
-      btn.textContent = patient.patient_name;
-      btn.addEventListener("click", () => {
+      const li = document.createElement("li");
+      const link = document.createElement("span");
+      link.textContent = patient.patient_name;
+      link.classList.add("patient-link");
+
+      link.addEventListener("click", () => {
         renderPatient(patient);
 
         document
-          .querySelectorAll(".sidebar button")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
+          .querySelectorAll(".patient-link")
+          .forEach((el) => el.classList.remove("active"));
+
+        link.classList.add("active");
       });
 
-      li.appendChild(btn);
+      li.appendChild(link);
       patientList.appendChild(li);
     });
-  })
-  .catch((err) => {
-    console.error("Error loading sheet:", err);
-  });
+  },
+  error: function (err) {
+    console.error("Error loading CSV:", err);
+    patientContent.innerHTML =
+      "<p>Error loading patient data. Check console.</p>";
+  },
+});
 
 function renderField(label, value) {
   if (!value || value.trim() === "") return "";
@@ -86,7 +95,7 @@ function renderPatient(patient) {
 
   patientContent.innerHTML = `
     <header class="patient-header">
-      <h1>${patient.patient_name}</h1>
+      <h1 class="patient-name">${patient.patient_name}</h1>
     </header>
 
     ${renderSection("General Information", general)}
