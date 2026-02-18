@@ -1,36 +1,108 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
+* {
+  box-sizing: border-box;
 }
 
-.container {
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f6f8;
+  color: #222;
+}
+
+.app {
   display: flex;
   height: 100vh;
 }
 
-#sidebar {
-  width: 250px;
-  background: #f4f4f4;
+/* Sidebar */
+
+.sidebar {
+  width: 260px;
+  background: #1e293b;
+  color: white;
   padding: 20px;
   overflow-y: auto;
 }
 
-#contentArea {
-  flex: 1;
-  padding: 30px;
+.sidebar h2 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 15px;
 }
 
-#sidebar ul {
+.sidebar ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-#sidebar li {
-  margin-bottom: 10px;
+.sidebar li {
+  margin-bottom: 8px;
 }
 
-#sidebar a {
-  text-decoration: none;
-  color: #333;
+.sidebar button {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.sidebar button:hover {
+  background: #334155;
+  color: white;
+}
+
+.sidebar button.active {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Content */
+
+.content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.patient-header h1 {
+  margin-top: 0;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+.section {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section h2 {
+  margin-top: 0;
+  font-size: 18px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 6px;
+}
+
+.field {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.label {
+  font-weight: 600;
+  width: 200px;
+  color: #475569;
+}
+
+.value {
+  flex: 1;
 }
