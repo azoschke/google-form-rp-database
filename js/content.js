@@ -84,16 +84,16 @@ function renderPatient(patientId) {
   `;
 
   // Find visits for this patient
-  const patientVisits = visitsData.filter(v => v.patient_id === patientId);
+  const patientVisits = visitsData
+    .map((v, i) => ({...v, index: i})) // keep original index
+    .filter(v => v.patient_id === patientId)
+    .sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date)); // latest first
 
   // Build visit list
   let visitLinks = "";
-  if (patientVisits.length) {
-    patientVisits.sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date)); // latest first
-    patientVisits.forEach(v => {
-      visitLinks += `<li><span class="visit-link" data-visit-id="${v.visit_id}">${v.visit_date}</span></li>`;
-    });
-  }
+  patientVisits.forEach(v => {
+    visitLinks += `<li><span class="visit-link" data-index="${v.index}">${v.visit_date}</span></li>`;
+  });
 
   patientContent.innerHTML = `
     <header class="patient-header">
@@ -114,8 +114,8 @@ function renderPatient(patientId) {
   // Attach click handlers for visit links
   document.querySelectorAll(".visit-link").forEach(link => {
     link.addEventListener("click", () => {
-      const visitId = link.dataset.visitId;
-      const visit = patientVisits.find(v => v.visit_id === visitId);
+      const idx = parseInt(link.dataset.index);
+      const visit = visitsData[idx];
       showVisitDetails(visit);
     });
   });
