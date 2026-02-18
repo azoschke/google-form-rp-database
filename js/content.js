@@ -35,7 +35,7 @@ Papa.parse(visitsURL, {
   }
 });
 
-// Build sidebar
+// Build patient sidebar
 function buildPatientSidebar() {
   patientsData.forEach(patient => {
     if (!patient.patient_id || !patient.patient_name) return;
@@ -62,95 +62,119 @@ function renderPatient(patientId) {
   const patient = patientsData.find(p => p.patient_id === patientId);
   if (!patient) return;
 
-  const general = `
-    ${renderField("Race",  patient.race)}
-    ${renderField("Gender", patient.gender)}
-    ${renderField("Age", patient.age)}
-    ${renderField("Date Updated", patient.date_updated)}
-  `;
+  const generalFields = [
+    { label: "Race", value: patient.race },
+    { label: "Gender", value: patient.gender },
+    { label: "Age", value: patient.age },
+    { label: "Vanguard Position", value: patient.vanguard_position },
+    { label: "Date Updated", value: patient.date_updated }
+  ];
 
-  const emergency = `
-    ${renderField("Name", patient.emergency_contact_name)}
-    ${renderField("Relationship", patient.emergency_contact_relationship)}
-    ${renderField("Contact Method", patient.emergency_contact_method)}
-  `;
+  const emergencyFields = [
+    { label: "Name", value: patient.emergency_contact_name },
+    { label: "Relationship", value: patient.emergency_contact_relationship },
+    { label: "Contact Method", value: patient.emergency_contact_method }
+  ];
 
-  const conditions = `
-    ${renderField("Chronic Illness", patient.chronic_illness)}
-    ${renderField("Previous Injuries", patient.previous_injuries)}
-    ${renderField("Known Allergies", patient.known_allergies)}
-    ${renderField("Current Medications", patient.current_medications)}
-    ${renderField("Aetheric Abnormalities", patient.aetheric_abnormalities)}
-  `;
+  const conditionsFields = [
+    { label: "Chronic Illness", value: patient.chronic_illness },
+    { label: "Previous Injuries", value: patient.previous_injuries },
+    { label: "Known Allergies", value: patient.known_allergies },
+    { label: "Current Medications", value: patient.current_medications },
+    { label: "Aetheric Abnormalities", value: patient.aetheric_abnormalities }
+  ];
 
-  // Find visits for this patient
+  // Filter visits for this patient
   const patientVisits = visitsData
-    .map((v, i) => ({...v, index: i})) // keep original index
+    .map((v, i) => ({ ...v, index: i }))
     .filter(v => v.patient_id === patientId)
-    .sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date)); // latest first
+    .sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date));
 
-  // Build visit list
-  let visitLinks = "";
-  patientVisits.forEach(v => {
-    visitLinks += `<li><span class="visit-link" data-index="${v.index}">${v.visit_date}</span></li>`;
+  // Build visit tabs
+  let visitTabs = "";
+  patientVisits.forEach((v, idx) => {
+    visitTabs += `<div class="visit-tab" data-index="${v.index}">${v.visit_date}</div>`;
   });
+
+  const visitsSectionHTML = patientVisits.length
+    ? `
+      <section class="section visits-section">
+        <h2>Visits</h2>
+        <div class="visit-tabs">${visitTabs}</div>
+        <div class="visit-details-container">
+          <div id="visitDetails"></div>
+        </div>
+      </section>
+    `
+    : ""; // hide section if no visits
 
   patientContent.innerHTML = `
     <header class="patient-header">
       <h1 class="patient-name">${patient.patient_name}</h1>
     </header>
 
-    ${renderSection("General Information", general)}
-    ${renderSection("Emergency Contact", emergency)}
-    ${renderSection("Pre-existing Conditions", conditions)}
+    ${renderSection("General Information", generalFields)}
+    ${renderSection("Emergency Contact", emergencyFields)}
+    ${renderSection("Pre-existing Conditions", conditionsFields)}
 
-    <section class="section visits-section">
-      <h2>Visits</h2>
-      <ul class="visit-list">${visitLinks}</ul>
-      <div id="visitDetails"></div>
-    </section>
+    ${visitsSectionHTML}
   `;
 
-  // Attach click handlers for visit links
-  document.querySelectorAll(".visit-link").forEach(link => {
-    link.addEventListener("click", () => {
-      const idx = parseInt(link.dataset.index);
-      const visit = visitsData[idx];
-      showVisitDetails(visit);
+  // Attach visit tab events
+  document.querySelectorAll(".visit-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".visit-tab").forEach(el => el.classList.remove("active"));
+      tab.classList.add("active");
+      const visitIdx = parseInt(tab.dataset.index);
+      showVisitDetails(visitsData[visitIdx]);
     });
   });
+
+  // Auto-click first visit if exists
+  if (patientVisits.length > 0) {
+    document.querySelector(".visit-tab").click();
+  }
 }
 
+// Render visit details, hide empty fields
 function showVisitDetails(visit) {
   if (!visit) return;
-  const details = `
-    ${renderField("Presenting Complaint", visit.presenting_complaint)}
-    ${renderField("Current Symptoms", visit.current_symptoms)}
-    ${renderField("Recent Exposures", visit.recent_exposures)}
-  `;
-  document.getElementById("visitDetails").innerHTML = `
-    <section class="section visit-details">
-      ${details}
-    </section>
-  `;
-}
 
-function renderField(label, value) {
-  if (!value || value.trim() === "") return "";
-  return `
+  const fields = [
+    { label: "Presenting Complaint", value: visit.presenting_complaint },
+    { label: "Current Symptoms", value: visit.current_symptoms },
+    { label: "Recent Exposures", value: visit.recent_exposures },
+    { label: "Attending Medic", value: visit.attending_medic },
+    { label: "Clinical Summary", value: visit.clinical_summary },
+    { label: "Diagnosis", value: visit.diagnosis },
+    { label: "Procedures Performed", value: visit.procedures_performed },
+    { label: "Treatment Plan", value: visit.treatment_plan },
+    { label: "Follow-up", value: visit.follow_up },
+    { label: "Discharge Status", value: visit.discharge_status },
+    { label: "Additional Notes", value: visit.additional_notes }
+  ];
+
+  const visibleFields = fields.filter(f => f.value && f.value.trim() !== "");
+
+  if (visibleFields.length === 0) {
+    document.getElementById("visitDetails").innerHTML = "<em>No details available for this visit.</em>";
+    return;
+  }
+
+  const html = visibleFields.map(f => `
     <div class="field">
-      <span class="label">${label}</span>
-      <span class="value">${value}</span>
+      <span class="label">${f.label}</span>
+      <span class="value">${f.value}</span>
     </div>
-  `;
+  `).join("");
+
+  document.getElementById("visitDetails").innerHTML = html;
 }
 
-function renderSection(title, fieldsHTML) {
-  if (!fieldsHTML.trim()) return "";
-  return `
-    <section class="section">
-      <h2>${title}</h2>
-      ${fieldsHTML}
-    </section>
-  `;
+// Render generic section
+function renderSection(title, fieldsArray) {
+  const visibleFields = fieldsArray.filter(f => f.value && f.value.trim() !== "");
+  if (visibleFields.length === 0) return "";
+  const fieldsHTML = visibleFields.map(f => `<div class="field"><span class="label">${f.label}</span><span class="value">${f.value}</span></div>`).join("");
+  return `<section class="section"><h2>${title}</h2>${fieldsHTML}</section>`;
 }
