@@ -9,11 +9,13 @@
 }
 
 body {
-  font-family: 'Ledger', serif;
-  background: #f0ece3;
-  color: var(--ink-color);
-  padding: 30px;
-  min-height: 100vh;
+    font-family: 'Ledger', serif;
+    background-image: url(https://github.com/crafting-tools/phoenix-vanguard-med-forms/blob/main/form-bg-web.jpg?raw=true);
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    padding: 30px;
+    color: var(--ink-color);
 }
 
 .app {
@@ -22,7 +24,7 @@ body {
   max-width: 1400px;
   margin: 0 auto;
 }
-
+/* SIDEBAR */
 .sidebar {
   width: 240px;
   background: #1f1713;
@@ -43,6 +45,7 @@ body {
 .patient-link.active { font-weight: bold; color: var(--parchment-bg); }
 .patient-link:hover { color: #fff; }
 
+/* CONTENT */
 .content { flex: 1; }
 
 .parchment {
@@ -69,13 +72,12 @@ body {
 .label { width: 220px; font-weight: bold; color: var(--accent-gold); }
 .value { flex: 1; }
 
-/* Visits tab system */
+/* VISITS TABS */
 .visits-section { display: flex; flex-direction: column; }
 .visit-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 20px;
 }
 .visit-tab {
   padding: 6px 12px;
@@ -86,6 +88,10 @@ body {
   font-size: 0.95rem;
   border: 1px solid var(--border-color);
   border-bottom: none;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .visit-tab.active {
   background: var(--accent-gold);
@@ -102,4 +108,13 @@ body {
 }
 .visit-details .field { margin-bottom: 10px; }
 
-@media(max-width:900px){.app{flex-direction:column;}.sidebar{width:100%;}}
+/* RESPONSIVE FIELDS */
+@media (max-width: 900px) {
+    .app {flex-direction: column;}
+    .sidebar {width:-webkit-fill-available;}
+}
+@media (max-width: 600px) {
+    body {padding: 15px;}
+    .parchment {padding: 20px;}
+    .label {width: 140px;}
+}
