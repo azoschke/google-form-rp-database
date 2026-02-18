@@ -1,3 +1,5 @@
+/*  Colors & Root Vars */
+
 :root {
     --parchment-bg: #e3ded3;
     --parchment-dark: #d6d0c4;
@@ -37,11 +39,12 @@ body {
 
 .sidebar {
     width: 240px;
-    background: #2b211c;
+    background: #1f1713;
     padding: 30px 20px;
     border-radius: 6px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.5);
 }
+
 .sidebar h2 {
     font-family: 'Stoke', serif;
     font-size: 1rem;
@@ -49,14 +52,19 @@ body {
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 20px;
-    opacity: 1;
+    opacity: 0.5;
 }
+
 .sidebar ul {
     list-style: none;
 }
+
 .sidebar li {
     margin-bottom: 8px;
 }
+
+/* Patient link text */
+
 .patient-link {
     font-family: 'Ledger', serif;
     font-size: 1rem;
@@ -64,18 +72,21 @@ body {
     color: rgba(255,255,255,0.45);
     transition: 0.2s ease;
 }
+
 .patient-link:hover {
     color: #ffffff;
 }
+
 .patient-link.active {
     color: var(--parchment-bg);
+    font-weight: bold;
 }
 
 /* Content Area */
-
 .content {
     flex: 1;
 }
+
 .parchment {
     background: var(--parchment-bg);
     padding: 40px;
@@ -85,6 +96,7 @@ body {
         inset 0 0 50px rgba(139, 105, 20, 0.1);
     position: relative;
 }
+
 .parchment::before {
     content: '';
     position: absolute;
@@ -96,14 +108,15 @@ body {
 }
 
 /* Patient Header */
-
 .patient-header {
     text-align: center;
     margin-bottom: 30px;
 }
-.patient-header h1 {
+
+.patient-header h1.patient-name {
     font-family: 'La Belle Aurore', cursive;
     font-size: 2rem;
+    letter-spacing: 1px;
 }
 
 /* Sections */
@@ -111,6 +124,7 @@ body {
 .section {
     margin-bottom: 30px;
 }
+
 .section h2 {
     font-family: 'Stoke', serif;
     font-size: 1.3rem;
@@ -127,22 +141,46 @@ body {
     margin-bottom: 8px;
     padding: 6px 0;
 }
+
 .label {
     width: 220px;
     font-weight: bold;
     color: var(--accent-gold);
 }
+
 .value {
     flex: 1;
 }
 
-/* Decorative Ornament */
-.ornament {
-    text-align: center;
-    font-size: 1.5rem;
+/* Visit List */
+
+.visit-list {
+    list-style: none;
+    margin-bottom: 15px;
+    padding-left: 0;
+}
+
+.visit-list li {
+    margin-bottom: 6px;
+}
+
+.visit-link {
+    font-family: 'Ledger', serif;
+    font-size: 1rem;
     color: var(--accent-gold);
-    margin: 20px 0;
-    opacity: 0.6;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.visit-link:hover {
+    text-decoration: underline;
+    color: var(--accent-red);
+}
+
+.visit-details {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
 }
 
 /* Responsive */
@@ -150,6 +188,7 @@ body {
     .app {
         flex-direction: column;
     }
+
     .sidebar {
         width: 100%;
     }
@@ -159,9 +198,11 @@ body {
     body {
         padding: 15px;
     }
+
     .parchment {
         padding: 20px;
     }
+
     .label {
         width: 140px;
     }
