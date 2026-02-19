@@ -19,30 +19,44 @@ body {
 }
 
 .app {
-  display: flex;
-  gap: 30px;
-  max-width: 1400px;
-  margin: 0 auto;
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 5px;
 }
 /* SIDEBAR */
 .sidebar {
+  background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
+  background-size: 80%;
+  background-repeat: repeat;
   width: 240px;
-  background: #1f1713;
-  padding: 30px 20px;
-  border-radius: 6px;
-  color: rgba(255,255,255,0.5);
+  padding: 30px;
+  border-radius: 5px;
+  color: var(--ink-color);
 }
 
-.sidebar ul { list-style: none; padding-left: 0; }
-.sidebar li { margin-bottom: 8px; }
+.sidebar ul { 
+	list-style: none; padding-left: 0; 
+}
+.sidebar li { 
+	margin-bottom: 12px; 
+}
+.sidebar h2 {
+	margin: 0;
+}
+
 .patient-link {
   cursor: pointer;
-  color: rgba(255,255,255,0.45);
+  color: var(--ink-color);
   font-family: 'Ledger', serif;
   font-size: 1rem;
   transition: 0.2s;
 }
-.patient-link.active { font-weight: bold; color: var(--parchment-bg); }
+.patient-link.active {
+    font-weight: bold;
+    color: var(--accent-red);
+}
 .patient-link:hover { color: #fff; }
 
 /* CONTENT */
@@ -50,7 +64,8 @@ body {
 
 .parchment {
     background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
-    background-size: cover;
+    background-size: 100%;
+    background-repeat: repeat;
     padding: 60px;
     border-radius: 5px;
     box-shadow: 0 0 20px var(--shadow-color), inset 0 0 50px rgba(139, 105, 20, 0.1);
@@ -59,7 +74,7 @@ body {
 
 .patient-header { 
 	text-align: center; 
-	margin-bottom: 20px; 
+	margin-bottom: 40px; 
 }
 .patient-header h1.patient-name {
     font-family: 'La Belle Aurore', cursive;
@@ -80,17 +95,31 @@ body {
     letter-spacing: .25rem;
 }
 
-.field { display: flex; margin-bottom: 15px; }
-.label { width: 220px; font-weight: bold; color: var(--accent-gold); }
+.field { 
+	display: flex; 
+	flex-direction: column;
+	margin-bottom: 20px; 
+}
+.label {
+    font-size: .9rem;
+    margin-bottom: 6px;
+    letter-spacing: .155rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #3d302a;
+}
 .value { flex: 1; }
 
 /* VISITS TABS */
-.visits-section { display: flex; flex-direction: column; }
+.visits-section { 
+	display: flex; 
+	flex-direction: column; 
+	margin-bottom: 0;
+}
 .visit-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-	margin-bottom: 0;
 }
 .visit-tab {
   padding: 6px 12px;
@@ -121,7 +150,6 @@ body {
 @media (max-width: 900px) {
     .app {flex-direction: column;}
     .sidebar {width:-webkit-fill-available;}
-	.field { flex-direction: column; }
 }
 @media (max-width: 600px) {
     body {padding: 15px;}
