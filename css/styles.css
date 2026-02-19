@@ -49,26 +49,38 @@ body {
 .content { flex: 1; }
 
 .parchment {
-  background: var(--parchment-bg);
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 0 20px var(--shadow-color), inset 0 0 50px rgba(139,105,20,0.1);
-  position: relative;
+    background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
+    background-size: cover;
+    padding: 60px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px var(--shadow-color), inset 0 0 50px rgba(139, 105, 20, 0.1);
+    position: relative;
 }
 
-.patient-header { text-align: center; margin-bottom: 30px; }
-.patient-header h1.patient-name { font-family: 'La Belle Aurore', cursive; font-size: 2rem; letter-spacing: 1px; }
+.patient-header { 
+	text-align: center; 
+	margin-bottom: 20px; 
+}
+.patient-header h1.patient-name {
+    font-family: 'La Belle Aurore', cursive;
+    font-size: 2.4rem;
+	line-height: 2.4rem;
+    font-weight: 500;
+    margin: 0;
+}
 
-.section { margin-bottom: 30px; }
+.section { 
+	margin-bottom: 40px; 
+}
 .section h2 {
-  font-family: 'Stoke', serif;
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 6px;
+    font-family: 'Stoke', serif;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: .25rem;
 }
 
-.field { display: flex; margin-bottom: 8px; }
+.field { display: flex; margin-bottom: 15px; }
 .label { width: 220px; font-weight: bold; color: var(--accent-gold); }
 .value { flex: 1; }
 
@@ -77,33 +89,30 @@ body {
 .visit-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 8px;
+	margin-bottom: 0;
 }
 .visit-tab {
   padding: 6px 12px;
-  background: var(--parchment-dark);
-  border-radius: 4px 4px 0 0;
+  background: #ada59194;
+  border-radius: 6px 6px 0 0;
   cursor: pointer;
   font-family: 'Ledger', serif;
   font-size: 0.95rem;
-  border: 1px solid var(--border-color);
-  border-bottom: none;
   max-width: 160px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .visit-tab.active {
-  background: var(--accent-gold);
-  color: var(--parchment-bg);
-  font-weight: bold;
+    background: #f9f5ef;
+    color: var(--ink-color);
+    font-weight: bold;
 }
-.visit-tab:hover { background: var(--accent-red); color: var(--parchment-bg); }
 
 .visit-details-container {
-  border: 1px solid var(--border-color);
   padding: 20px;
-  border-radius: 0 4px 4px 4px;
+  border-radius: 0 6px 6px 6px;
   background: #f9f5ef;
 }
 .visit-details .field { margin-bottom: 10px; }
@@ -112,6 +121,7 @@ body {
 @media (max-width: 900px) {
     .app {flex-direction: column;}
     .sidebar {width:-webkit-fill-available;}
+	.field { flex-direction: column; }
 }
 @media (max-width: 600px) {
     body {padding: 15px;}
