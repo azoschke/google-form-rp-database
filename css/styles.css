@@ -20,20 +20,21 @@ body {
 
 .app {
     display: flex;
-    gap: 30px;
     max-width: 1400px;
     margin: 0 auto;
     border-radius: 5px;
 }
 /* SIDEBAR */
 .sidebar {
-  background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
-  background-size: 80%;
-  background-repeat: repeat;
-  width: 240px;
-  padding: 30px;
-  border-radius: 5px;
-  color: var(--ink-color);
+    background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
+    background-size: cover;
+    background-repeat: repeat;
+    width: 240px;
+    padding: 30px;
+    border-radius: 5px 0 0 5px;
+    color: var(--ink-color);
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .sidebar ul { 
@@ -57,15 +58,16 @@ body {
     font-weight: bold;
     color: var(--accent-red);
 }
-.patient-link:hover { color: #fff; }
+.patient-link:hover { 
+	color: var(--accent-red);
+}
 
 /* CONTENT */
 .content { flex: 1; }
 
 .parchment {
     background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
-    background-size: 100%;
-    background-repeat: repeat;
+    background-size: cover;
     padding: 60px;
     border-radius: 5px;
     box-shadow: 0 0 20px var(--shadow-color), inset 0 0 50px rgba(139, 105, 20, 0.1);
@@ -134,7 +136,7 @@ body {
   text-overflow: ellipsis;
 }
 .visit-tab.active {
-    background: #f9f5ef;
+    background: #f9f5efa3;
     color: var(--ink-color);
     font-weight: bold;
 }
@@ -142,17 +144,27 @@ body {
 .visit-details-container {
   padding: 20px;
   border-radius: 0 6px 6px 6px;
-  background: #f9f5ef;
+  background: #f9f5efa3;
 }
 .visit-details .field { margin-bottom: 10px; }
 
 /* RESPONSIVE FIELDS */
 @media (max-width: 900px) {
     .app {flex-direction: column;}
-    .sidebar {width:-webkit-fill-available;}
+    .sidebar {
+		width:-webkit-fill-available;
+		border-radius:5px;
+		margin-top:0;
+	}
+	.parchment {
+		background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
+		background-size: 100%;
+		background-repeat: repeat;
+		padding: 40px 30px;
+	}
 }
 @media (max-width: 600px) {
-    body {padding: 15px;}
-    .parchment {padding: 20px;}
-    .label {width: 140px;}
+    body {
+		padding: 15px;
+	}
 }
