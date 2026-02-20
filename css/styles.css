@@ -10,6 +10,7 @@
 
 body {
     font-family: 'Ledger', serif;
+	font-weight: 600;
     background-image: url(https://github.com/crafting-tools/phoenix-vanguard-med-forms/blob/main/form-bg-web.jpg?raw=true);
     background-attachment: fixed;
     background-size: cover;
@@ -18,35 +19,108 @@ body {
     color: var(--ink-color);
 }
 
+.header {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.header .branding {
+    border-radius: 6px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: auto;
+    width: fit-content;
+}
+.header .nav {
+    border-radius: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 30px;
+}
+.header h1 {
+    font-family: 'Stoke';
+    font-weight: 500;
+    color: #e1ddd1;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    margin: 0;
+    margin-bottom: 8px;
+}
+.header p {
+    font-family: 'La Belle Aurore', cursive;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+    color: #c2bba5;
+    text-shadow: 1px 1px 1px #00000054;
+    margin: 0;
+}
+.header .branding img {
+	width: 90px;
+	height: 90px;
+    border-radius: 50%;
+    padding: 1px;
+	display: block;
+	filter: drop-shadow(2px 2px 2px #110f0ecc);
+}
+.header .nav a {
+    color: #e1dbd1;
+    text-decoration: none;
+    font-family: 'Stoke';
+    font-weight: 500;
+    padding: 10px;
+    display: block;
+    width: fit-content;
+    font-size: .76rem;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    background: #19100c;
+    border-radius: 6px;
+}
+
 .app {
     display: flex;
-    max-width: 1400px;
+    max-width: 1100px;
     margin: 0 auto;
     border-radius: 5px;
 }
 /* SIDEBAR */
 .sidebar {
-    background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
-    background-size: cover;
-    background-repeat: repeat;
-    width: 240px;
-    padding: 30px;
+    background: var(--parchment-bg);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    width: fit-content;
+    padding: 30px 0;
     border-radius: 5px 0 0 5px;
     color: var(--ink-color);
     margin-top: 20px;
     margin-bottom: 20px;
+	height: fit-content;
+	position: sticky;
+    top: 20px;
 }
 
 .sidebar ul { 
 	list-style: none; padding-left: 0; 
 }
-.sidebar li { 
-	margin-bottom: 12px; 
+.sidebar li {
+    border-bottom: 1px solid var(--shadow-color);
+    padding: 12px 30px;
+}
+.sidebar li:has(.patient-link.active) {
+    background-color: #ffffff4d;
 }
 .sidebar h2 {
-	margin: 0;
+    margin: 0;
+    padding: 0 30px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    letter-spacing: .2rem;
 }
-
 .patient-link {
   cursor: pointer;
   color: var(--ink-color);
@@ -55,7 +129,6 @@ body {
   transition: 0.2s;
 }
 .patient-link.active {
-    font-weight: bold;
     color: var(--accent-red);
 }
 .patient-link:hover { 
@@ -66,8 +139,8 @@ body {
 .content { flex: 1; }
 
 .parchment {
-    background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
-    background-size: cover;
+    background: var(--parchment-bg);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
     padding: 60px;
     border-radius: 5px;
     box-shadow: 0 0 20px var(--shadow-color), inset 0 0 50px rgba(139, 105, 20, 0.1);
@@ -75,8 +148,7 @@ body {
 }
 
 .patient-header { 
-	text-align: center; 
-	margin-bottom: 40px; 
+	margin-bottom: 20px; 
 }
 .patient-header h1.patient-name {
     font-family: 'La Belle Aurore', cursive;
@@ -84,14 +156,16 @@ body {
 	line-height: 2.4rem;
     font-weight: 500;
     margin: 0;
+	border-bottom: 2px dashed var(--parchment-dark);
 }
 
 .section { 
-	margin-bottom: 40px; 
+	border-bottom: 2px dashed var(--parchment-dark);
+	margin-bottom: 20px; 
 }
 .section h2 {
     font-family: 'Stoke', serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: .25rem;
@@ -103,20 +177,25 @@ body {
 	margin-bottom: 20px; 
 }
 .label {
-    font-size: .9rem;
+    font-family: 'Stoke';
+    font-size: .8rem;
     margin-bottom: 6px;
-    letter-spacing: .155rem;
+    letter-spacing: .125rem;
     text-transform: uppercase;
     font-weight: bold;
-    color: #3d302a;
+    color: #5e5d59;
 }
-.value { flex: 1; }
+.value { 
+	flex: 1; 
+	white-space: pre-wrap;
+}
 
 /* VISITS TABS */
 .visits-section { 
 	display: flex; 
 	flex-direction: column; 
 	margin-bottom: 0;
+	border-bottom: none;
 }
 .visit-tabs {
   display: flex;
@@ -150,16 +229,14 @@ body {
 
 /* RESPONSIVE FIELDS */
 @media (max-width: 900px) {
-    .app {flex-direction: column;}
+    .app, .header .branding {flex-direction: column;}
     .sidebar {
 		width:-webkit-fill-available;
 		border-radius:5px;
 		margin-top:0;
+		position: unset;
 	}
 	.parchment {
-		background: url(https://github.com/azoschke/rp-form-to-pdf/blob/form-to-pdf-website/pdf-texture-web.jpg?raw=true);
-		background-size: 100%;
-		background-repeat: repeat;
 		padding: 40px 30px;
 	}
 }
